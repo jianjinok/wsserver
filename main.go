@@ -22,20 +22,12 @@ var (
     wschan chan string
 )
 
-func wstask(wschan chan string){
-    ws.Server(wsip, wsurl, wscert, wskey, wschan)
-}
-
-func resttask(wschan chan string){
-    rest.Server(restip, resturl, wschan)
-}
-
 func paramProc(){
     flag.BoolVar(&h, "h", false, "cmd -ip \"0.0.0.0:3333\" -url \"ws\"")
     flag.StringVar(&wsip, "wsip", "0.0.0.0:3333", "websocket ip address")
-    flag.StringVar(&wsurl, "wsurl", "ws", "ws url")
     flag.StringVar(&restip, "restip", "0.0.0.0:3334", "rest ip address")
-    flag.StringVar(&resturl, "resturl", "rest", "rest url")
+    flag.StringVar(&wsurl, "wsurl", "ws", "ws url")
+    flag.StringVar(&resturl, "resturl", "ws/rest", "rest url")
     flag.StringVar(&wscert, "wscert", "cert/test.pem", "websocket ssl cert")
     flag.StringVar(&wskey, "wskey", "cert/test.key", "websocket ssl key")
     flag.Parse()
@@ -46,6 +38,14 @@ func paramProc(){
     }
     resturl = "/" + resturl
     wsurl = "/" + wsurl
+}
+
+func wstask(wschan chan string){
+    ws.Server(wsip, wsurl, wscert, wskey, wschan)
+}
+
+func resttask(wschan chan string){
+    rest.Server(restip, resturl, wschan)
 }
 
 func main(){

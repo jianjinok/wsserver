@@ -8,24 +8,22 @@ import(
     )
 
 var wschan chan<- string
-var routes = [] *rest.Route {
-    rest.Post("/screenws", screenws),
-}
 
 func restServer(ip string, url string){
 
     api := rest.NewApi()
     api.Use(rest.DefaultDevStack...)
+    routes := [] *rest.Route{rest.Post(url, handlews)}
     router, err := rest.MakeRouter(routes...)
     if err != nil{
         log.Fatal(err)
     }
     api.SetApp(router)
-    http.Handle(url+"/", http.StripPrefix(url, api.MakeHandler()))
+    http.Handle("/", http.StripPrefix("", api.MakeHandler()))
     log.Fatal(http.ListenAndServe(ip, nil))
 }
 
-func screenws(w rest.ResponseWriter, req *rest.Request){
+func handlews(w rest.ResponseWriter, req *rest.Request){
     w.WriteJson(map[string]string{"status":"ok"})
     jsonbytes, _ := ioutil.ReadAll(req.Body)
     jsonstr := string(jsonbytes)
