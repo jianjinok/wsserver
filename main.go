@@ -61,3 +61,6 @@ func main(){
     wg.Wait()
 }
 
+func init(){
+    log.SetFlags(log.Llongfile | log.LstdFlags)
+}
