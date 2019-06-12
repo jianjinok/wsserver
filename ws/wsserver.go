@@ -51,7 +51,10 @@ func wsHandler(w http.ResponseWriter, r *http.Request){
 
     log.Printf("wsHandler %v\n", r.URL)
     room,ok := r.URL.Query()[WsRoom]
-    if !ok{return}
+    if !ok{
+        log.Println("no find room")    
+        return
+    }
 
     if wbsCon, err = upgrader.Upgrade(w, r, nil); err != nil {
         return
