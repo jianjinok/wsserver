@@ -9,6 +9,8 @@ import (
     "wsserver/rest"
 )
 
+const version="v1.5"
+
 var (
     h bool
     wsip string
@@ -63,4 +65,5 @@ func main(){
 
 func init(){
     log.SetFlags(log.Llongfile | log.LstdFlags)
+    log.Println(version)
 }
