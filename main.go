@@ -30,7 +30,7 @@ func paramProc(){
     flag.StringVar(&restip, "restip", "0.0.0.0:3334", "rest ip address")
     flag.StringVar(&wsurl, "wsurl", "ws", "ws url")
     flag.StringVar(&resturl, "resturl", "ws/rest", "rest url")
-    flag.StringVar(&wscert, "wscert", "cert/test.pem", "websocket ssl cert")
+    flag.StringVar(&wscert, "wscert", "cert/test.pem", "websocket ssl cert <if empty no using tls>")
     flag.StringVar(&wskey, "wskey", "cert/test.key", "websocket ssl key")
     flag.Parse()
 

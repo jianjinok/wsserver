@@ -69,7 +69,15 @@ func wsHandler(w http.ResponseWriter, r *http.Request){
 
 func wsserver(ip string, url string, cert string, key string){
     http.HandleFunc(url, wsHandler)
-    err := http.ListenAndServeTLS(ip, cert, key, nil)
+
+    var err error
+    if len(cert) == 0{
+        log.Println("running websocket")
+        err = http.ListenAndServe(ip, nil)
+    }else{
+        log.Println("running tls websocket")
+        err = http.ListenAndServeTLS(ip, cert, key, nil)
+    }
     if err != nil{
         log.Fatal("Listen Server", err.Error())
     }
