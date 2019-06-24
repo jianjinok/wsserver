@@ -9,7 +9,7 @@ import (
     "wsserver/rest"
 )
 
-const version="v1.5"
+const version="v1.6"
 
 var (
     h bool
